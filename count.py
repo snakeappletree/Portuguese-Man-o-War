@@ -12,11 +12,16 @@ def read_database(file_name):
             database +=line.strip()
       return database
 
-def count(kmer_len,table_size,threads,file,c=False):
+# Count unique kmers
+def count(kmer_len,table_size,threads,output,file,c=False):
    database = read_database(file)
    kmer_count={}
    elements=0
    lock = threading.Lock()
+   def write_out(kmer_count,output):
+      with open(output, 'w') as f:
+         for kmer, count in kmer_count.items():
+            f.write(f"{kmer}\t{count}\n")
 
    def count_chunk(chunk):
       nonlocal kmer_count, elements
@@ -46,22 +51,24 @@ def count(kmer_len,table_size,threads,file,c=False):
 
    for thread in threads_list:
       thread.join()
-
+   write_out(kmer_count,output)
    return kmer_count
+
 def main():
 
    # Add arguments
    parse = argparse.ArgumentParser(description='Count k-mers in a DNA sequence.')
-   parse.add_argument('-k',metavar='kmer_len',type=int,default=21,help="length of k-mers (default:21)")
+   parse.add_argument('-m',metavar='kmer_len',type=int,default=21,help="length of k-mers (default:21)")
    parse.add_argument('-s',metavar='table_size',type=int,default=1000000,help="number of elements in hash table (default:1000000)")
    parse.add_argument('-t',metavar='threads',type=int,default=4,help="number of threads to use (default:4)")
-   parse.add_argument('-C', action='store_true', help="count with forward and reverse kmers as same")
+   parse.add_argument('-o',metavar='output',type=str,help="output file containing DNA sequences" )
    parse.add_argument('file', type=str, help="input file containing DNA sequence")
+   parse.add_argument('-C', action='store_true', help="count with forward and reverse kmers as same")
 
    # Parse arguments
    args = parse.parse_args()
 
-   num_kmers=len(count(args.k, args.s, args.t, args.file, args.C))
+   num_kmers=count(args.m,args.s, args.t,args.o,args.file,args.C)
    print(num_kmers)
 
 if __name__ == "__main__":

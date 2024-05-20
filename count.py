@@ -20,8 +20,8 @@ def count(kmer_len,table_size,threads,output,file,c=False):
    lock = threading.Lock()
    def write_out(kmer_count,output):
       with open(output, 'w') as f:
-         for kmer, count in kmer_count.items():
-            f.write(f"{kmer}\t{count}\n")
+         for hash_value, (seq, freq) in kmer_count.items():
+            f.write(f"{hash_value}: ({seq}, {freq})\n")
 
    def count_chunk(chunk):
       nonlocal kmer_count, elements
@@ -33,11 +33,11 @@ def count(kmer_len,table_size,threads,output,file,c=False):
             hash_value = min(hash_value, rev_hash_value)
          with lock:
             if hash_value in kmer_count:
-               kmer_count[hash_value] += 1
+               kmer_count[hash_value][1] += 1
             else:
                if elements >= table_size:
                   return  # Stop processing if table size limit reached
-               kmer_count[hash_value] = 1
+               kmer_count[hash_value] = (kmer,1)
                elements += 1
 
    chunk_size = len(database) // threads

@@ -1,20 +1,32 @@
 import mmh3
 import argparse
 import threading
-#from collections import defaultdict < potentially currently i store them as hashvalues
+from read_database import read_database
+from read_fasta import read_fasta
 
-# Read database file
-def read_database(file_name):
-   database = ""
-   with open(file_name, "r") as dna_file:
-      for line in dna_file:
-         if line.startswith('>') == False: 
-            database +=line.strip()
-      return database
+# To determine if use read_fasta or read_database
+def Format(file_path):
+   with open(file_path, 'r') as file:
+      count = 0
+      for line in file:
+         if line.startswith(">"):
+            count +=1
+            if count ==2: break
+      if count == 1:
+         reader = "read_database"
+      elif count > 1:
+         reader = "read_fasta"
+   return reader
 
 # Count unique kmers
 def count(kmer_len,table_size,threads,output,file,c=False):
-   database = read_database(file)
+   file_format = Format(file)
+   if file_format == 'read_database':
+      data = read_database(file)
+   elif file_format == 'read_fasta':
+      data = read_fasta(file)
+   else:
+      raise ValueError("Unable to determine file format.")
    kmer_count={}
    elements=0
    lock = threading.Lock()
@@ -40,12 +52,12 @@ def count(kmer_len,table_size,threads,output,file,c=False):
                kmer_count[hash_value] = (kmer,1)
                elements += 1
 
-   chunk_size = len(database) // threads
+   chunk_size = len(data) // threads
    threads_list = []
    for i in range(threads):
       start = i * chunk_size
-      end = (i + 1) * chunk_size if i < threads - 1 else len(database)
-      thread = threading.Thread(target=count_chunk, args=(database[start:end],))
+      end = (i + 1) * chunk_size if i < threads - 1 else len(data)
+      thread = threading.Thread(target=count_chunk, args=(data[start:end],))
       thread.start()
       threads_list.append(thread)
 

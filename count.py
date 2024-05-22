@@ -68,8 +68,10 @@ def main():
    # Parse arguments
    args = parse.parse_args()
 
-   num_kmers=count(args.m,args.s, args.t,args.o,args.file,args.C)
-   print(num_kmers)
+   count(args.m,args.s, args.t,args.o,args.file,args.C)
+
+   #num_kmers=count(args.m,args.s, args.t,args.o,args.file,args.C)
+   #print(num_kmers)
 
 if __name__ == "__main__":
    main()

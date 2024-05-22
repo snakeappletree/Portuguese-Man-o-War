@@ -11,12 +11,12 @@ def Format(file_path):
       for line in file:
          if line.startswith(">"):
             count +=1
-            if count ==2: break
+            if count > 1:
+               reader = "read_fasta"
+               return reader
       if count == 1:
          reader = "read_database"
-      elif count > 1:
-         reader = "read_fasta"
-   return reader
+         return reader
 
 # Count unique kmers
 def count(kmer_len,table_size,threads,output,file,c=False):

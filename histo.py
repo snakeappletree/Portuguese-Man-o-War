@@ -1,6 +1,8 @@
 import argparse
 import matplotlib.pyplot as plt
 
+# Names should be self explainatory
+
 def read_count_file(file):
    counts = {}
    with open(file, 'r') as f:

@@ -11,8 +11,9 @@ def read_count_file(file):
          counts[hash_val] = count_val
    return counts
 
-def plot_histogram(counts):
-   plt.hist(counts.values(), bins=50, color='green', edgecolor='black')
+def plot_histogram(counts, low, high, incr):
+   bins = range(low, high + incr, incr)
+   plt.hist(counts.values(), bins=bins, color='green', edgecolor='black')
    plt.xlabel('Count')
    plt.ylabel('Frequency')
    plt.title('Histogram of K-mer Counts')
@@ -22,9 +23,12 @@ def plot_histogram(counts):
 def main():
    parse = argparse.ArgumentParser(description='Plot histogram of k-mer counts')
    parse.add_argument('input_file', type=str, help='Path to the input file containing k-mer counts')
+   parse.add_argument('-l', '--low', type=int, default=0, help='Low count bucket value')
+   parse.add_argument('-h', '--high', type=int, default=100, help='High count bucket value')
+   parse.add_argument('-i', '--incr', type=int, default=10, help='Increment for bucket value')
    args = parse.parse_args()
    counts = read_count_file(args.input_file)
-   plot_histogram(counts)
+   plot_histogram(counts, args.low, args.high, args.incr)
 
 if __name__ == "__main__":
    main()

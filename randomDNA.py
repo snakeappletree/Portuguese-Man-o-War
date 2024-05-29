@@ -4,7 +4,7 @@ import argparse
 #To build the specified number of sequences of the specified length
 def build_seq(num_seq, seq_len, uno_prob):
    seqs = []
-   nt = ['A', 'C', 'G', 'T']
+   nt = ['A', 'C', 'G', 'T'] # could add 'U' for RNA but ehh maybe some other time
    if random.random() < uno_prob:
       seq = ''.join(random.choices(nt, k=num_seq * seq_len))
       for i in range(0, len(seq), seq_len):

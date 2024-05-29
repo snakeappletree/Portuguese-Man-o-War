@@ -13,7 +13,8 @@ Arguments:
  - file: Input file
 
 ## Histo: Computes a histogram of k-mer occurences
-//TODO
+Arguments:
+- input_file: the input file
 
 ## Dump: Outputs all k-mer counts
 //TODO

@@ -24,7 +24,7 @@ def count(kmer_len,table_size,threads,output,file,c=False):
    if file_format == 'read_database':
       data = read_database(file)
    elif file_format == 'read_fasta':
-      data = read_fasta(file)
+      data = ''.join(read_fasta(file))
    else:
       raise ValueError("Unable to determine file format.")
    kmer_count={}
@@ -45,10 +45,13 @@ def count(kmer_len,table_size,threads,output,file,c=False):
             hash_value = min(hash_value, rev_hash_value)
          with lock:
             if hash_value in kmer_count:
-               kmer_count[hash_value][1] += 1
+               D_kmer = list(kmer_count[hash_value])
+               D_kmer[1] += 1  # Increment frequency
+               kmer_count[hash_value] = tuple(D_kmer)  # Convert back to tuple
             else:
                if elements >= table_size:
                   return  # Stop processing if table size limit reached
+               #print(f"New k-mer: {kmer}, Hash: {hash_value}")
                kmer_count[hash_value] = (kmer,1)
                elements += 1
 

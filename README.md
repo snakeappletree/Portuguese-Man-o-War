@@ -24,3 +24,10 @@ Arguments:
 
 ## Query: Queries the counts for a specific k-mer
 //TODO
+
+### randomDNA : optional bonus tool to generate data for testing main tool
+Arguments:
+- num_seq: number of sequences to generate
+- seq_len: length of the sequences to generate
+- outfile: the file to save these generated sequences to
+- uno_prob: probability of generating a single sequence, basically output similar to sample_DNA.txt

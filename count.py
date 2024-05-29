@@ -30,6 +30,7 @@ def count(kmer_len,table_size,threads,output,file,c=False):
    kmer_count={}
    elements=0
    lock = threading.Lock()
+   output = output+'.pmow'
    def write_out(kmer_count,output):
       with open(output, 'w') as f:
          for hash_value, (seq, freq) in kmer_count.items():

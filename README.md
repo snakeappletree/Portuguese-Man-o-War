@@ -15,8 +15,8 @@ Arguments:
 ## Histo: Computes a histogram of k-mer occurences
 Arguments:
 - input_file: the input file
-- -l: Low count bucket value
-- -h: High count bucket value
+- -L: Low count bucket value
+- -H: High count bucket value
 - -i: Increment for bucket value
 
 ## Dump: Outputs all k-mer counts

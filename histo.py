@@ -23,8 +23,8 @@ def plot_histogram(counts, low, high, incr):
 def main():
    parse = argparse.ArgumentParser(description='Plot histogram of k-mer counts')
    parse.add_argument('input_file', type=str, help='Path to the input file containing k-mer counts')
-   parse.add_argument('-l', '--low', type=int, default=0, help='Low count bucket value')
-   parse.add_argument('-h', '--high', type=int, default=100, help='High count bucket value')
+   parse.add_argument('-L', '--low', type=int, default=0, help='Low count bucket value')
+   parse.add_argument('-H', '--high', type=int, default=100, help='High count bucket value')
    parse.add_argument('-i', '--incr', type=int, default=10, help='Increment for bucket value')
    args = parse.parse_args()
    counts = read_count_file(args.input_file)

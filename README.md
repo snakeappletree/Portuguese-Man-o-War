@@ -14,16 +14,23 @@ Arguments:
 
 ## Histo: Computes a histogram of k-mer occurences
 Arguments:
-- input_file: the input file
+- input_file: The input file
 - -L: Low count bucket value
 - -H: High count bucket value
 - -i: Increment for bucket value
 
 ## Dump: Outputs all k-mer counts
-//TODO
+Arguments: 
+- input_file: Input file containing k-mers and counts
+- -c, --column: Output in column format
+- -L, --low: Minimum count of k-mers to include (Default = 1)
+- -U, --high: Maximum count of k-mers to include (Default = inf)
 
 ## Query: Queries the counts for a specific k-mer
-//TODO
+Arguments:
+- input_file: Input file containing k-mers and counts
+- kmers: K-mers to query
+- -s, --sequence_files: FASTA or FASTQ files to read sequences from
 
 ### randomDNA : optional bonus tool to generate data for testing main tool
 Arguments:

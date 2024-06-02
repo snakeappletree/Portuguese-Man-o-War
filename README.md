@@ -9,7 +9,7 @@ Arguments:
  - -k: K-mer length
  - -s: Hash table size
  - -t: Number of threads to run the tool
- - -C: Ignore directionality modifier
+ - -C: Count forward and reverse of sequence as the same
  - file: Input file
 
 ## Histo: Computes a histogram of k-mer occurences

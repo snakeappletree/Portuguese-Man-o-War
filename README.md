@@ -3,7 +3,7 @@
 This tool is used to count k-mers in large sequences of DNA similar to the well-known program jellyfish (seen in Lab 2, Part 1).
 The tool operates using the external library mmh3 for efficient hashing for k-mer storage.
 The tool contains the following submethods:
-
+## Main: acts primative help function and allows users to know all other functions calls that can be made. basically our -h help command our only actual properly working one 
 ## Count: Counts all k-mers in the sequence
 Arguments:
  - -m: K-mer length  (default = 21)

@@ -77,7 +77,7 @@ def main():
    parse.add_argument('-m',metavar='kmer_len',type=int,default=21,help="length of k-mers (default:21)")
    parse.add_argument('-s',metavar='table_size',type=int,default=1000000,help="number of elements in hash table (default:1000000)")
    parse.add_argument('-t',metavar='threads',type=int,default=4,help="number of threads to use (default:4)")
-   parse.add_argument('-o',metavar='output',type=str,help="output file containing DNA sequences" )
+   parse.add_argument('-o',metavar='output',type=str,help="output file containing DNA sequences, required" )
    parse.add_argument('file', type=str, help="input file containing DNA sequence")
    parse.add_argument('-C', action='store_true', help="count with forward and reverse kmers as same")
 

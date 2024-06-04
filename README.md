@@ -6,11 +6,12 @@ The tool contains the following submethods:
 
 ## Count: Counts all k-mers in the sequence
 Arguments:
- - -k: K-mer length
+ - -m: K-mer length
  - -s: Hash table size
  - -t: Number of threads to run the tool
- - -C: Count forward and reverse of sequence as the same
+ - -o: outputfile of user choice 
  - file: Input file
+ - -C: Count forward and reverse of sequence as the same
 
 ## Histo: Computes a histogram of k-mer occurences
 Arguments:
@@ -38,3 +39,4 @@ Arguments:
 - seq_len: length of the sequences to generate
 - outfile: the file to save these generated sequences to
 - uno_prob: probability of generating a single sequence, basically output similar to sample_DNA.txt
+for giving arguments just give in order seen here if i want say 50 sequces of len 100 nt to outfile called bat.txt with uno_prob of 50% I will type python randomDNA.py 50 100 bat.txt 0.5

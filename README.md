@@ -41,4 +41,4 @@ Arguments:
 - uno_prob: probability of generating a single sequence, basically output similar to sample_DNA.txt (default = 0.5)
 
 for giving arguments just give in order seen here if i want say 50 sequces of len 100 nt to outfile called bat.txt with uno_prob of 50% I will type python randomDNA.py 50 100 bat.txt 0.5
-
+if users desire I will change it to be similar to rest. this is a module unique from jellyfish so did not try to follow jellyfish's convention on this one, probably should have said something my bad

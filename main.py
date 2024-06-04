@@ -29,7 +29,7 @@ def main():
    elif args.command == "randomDNA":
       randomDNAm(args.args)
    else:
-      print("Invalid command, try tying: pmow -h or python main.py -h")
+      print("Invalid command, try tying: python main.py -h")
 
 if __name__ == "__main__":
     main()

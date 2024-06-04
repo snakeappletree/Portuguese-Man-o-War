@@ -13,6 +13,9 @@ Arguments:
  - file: Input file
  - -C: Count forward and reverse of sequence as the same (default = false, i.e. not present no '-C' typed)
 
+for some reason the usage prints it in a way that implies file as last argument even though this is not how it is set up. I would change code to match usage but it refuses to accept anything but -c as pylance does not like "Non-default argument follows default argument" so the printed usage is misleading but don't know how to fix it. this is why i usually define my own arg parcers
+usage should be -h, -m kmer_len , -s table_size , -t threads , -o output, file, -C
+
 ## Histo: Computes a histogram of k-mer occurences
 Arguments:
 - input_file: The input file
@@ -20,6 +23,8 @@ Arguments:
 - -H: High count bucket value (default=100)
 - -i: Increment for bucket value (default=10)
 
+again like in case of count it is not reflecting accurately so I guess just know order is same as seen in readme for all modules. assume items that are not labeled like -item expect no prefix identifier. ex : the input file just type the file don't type "input_file" before it. 
+again this is why I usually use my own parcers as I can make it work exactly as I want.
 ## Dump: Outputs all k-mer counts
 Arguments: 
 - input_file: Input file containing k-mers and counts

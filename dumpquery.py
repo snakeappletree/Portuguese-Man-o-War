@@ -23,8 +23,15 @@ def read_kmers(file_path):
     kmers = {}
     with open(file_path, 'r') as file:
         for line in file:
-            kmer, count = line.strip().split()
-            kmers[kmer] = int(count)
+            parts = line.strip().split()
+            if len(parts) == 2:
+                kmer, count = parts
+                try:
+                    kmers[kmer] = int(count)
+                except ValueError:
+                    print(f"Skipping line with non-integer count: {line}")
+            else:
+                print(f"Skipping line due to unexpected format: {line}")
     return kmers
 
 def filter_kmers(kmers, low, high):
@@ -57,7 +64,7 @@ def read_sequences_from_fasta(file_path):
     return sequences
 
 def query_kmers(kmers_dict, query_kmers):
-    results = {kmer: kmers_dict.get(kmer, 0) for kmer in query_kmers}
+    results = {kmer: kmers_dict.get(kmer, 0) for kmer in query_kmers if kmers_dict.get(kmer, 0) > 0}
     return results
 
 def main():
@@ -76,9 +83,11 @@ def main():
             query_kmers_set = set()
             for seq_file in args.sequence_files:
                 sequences = read_sequences_from_fasta(seq_file)
+                kmer_length = len(next(iter(kmers))) if kmers else 0
                 for seq in sequences:
-                    for i in range(len(seq) - len(next(iter(kmers))) + 1):
-                        query_kmers_set.add(seq[i:i+len(next(iter(kmers)))])
+                    for i in range(len(seq) - kmer_length + 1):
+                        kmer = seq[i:i+kmer_length]
+                        query_kmers_set.add(kmer)
             query_results = query_kmers(kmers, query_kmers_set)
 
             for kmer, count in query_results.items():

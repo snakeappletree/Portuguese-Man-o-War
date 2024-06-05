@@ -9,7 +9,7 @@ def Format(file_path):
    with open(file_path, 'r') as file:
       count = 0
       for line in file:
-         if line.startswith(">"):
+         if line.startswith(">") or line.startswith("@"):
             count +=1
             if count > 1:
                reader = "read_fasta"
@@ -71,7 +71,6 @@ def count(kmer_len,table_size,threads,output,file,c=False):
    return kmer_count
 
 def main():
-
    # Add arguments
    parse = argparse.ArgumentParser(description='Count k-mers in a DNA sequence.')
    parse.add_argument('-m',metavar='kmer_len',type=int,default=21,help="length of k-mers (default:21)")
@@ -85,9 +84,5 @@ def main():
    args = parse.parse_args()
 
    count(args.m,args.s, args.t,args.o,args.file,args.C)
-
-   #num_kmers=count(args.m,args.s, args.t,args.o,args.file,args.C)
-   #print(num_kmers)
-
 if __name__ == "__main__":
    main()

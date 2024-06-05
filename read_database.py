@@ -3,6 +3,6 @@ def read_database(file_path):
    database = ""
    with open(file_path, "r") as dna_file:
       for line in dna_file:
-         if line.startswith('>')==False or line.startswith('@') == False: 
+         if line.startswith('>')==False and line.startswith('@') == False: 
             database +=line.strip()
       return database

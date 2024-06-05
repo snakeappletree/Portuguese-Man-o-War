@@ -9,8 +9,11 @@ def Format(file_path):
    with open(file_path, 'r') as file:
       count = 0
       for line in file:
+         print("line:",line)
          if line.startswith(">") or line.startswith("@"):
             count +=1
+         else:
+            count = 0
             if count > 1:
                reader = "read_fasta"
                return reader

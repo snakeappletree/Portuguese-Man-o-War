@@ -4,7 +4,8 @@ def read_fasta(file_path):
       seq = []
       for line in file:
          line = line.strip()
-         if (line.startswith('@') == False or line.startswith('>')==False):
+         if (line.startswith('@')or line.startswith('>')):
+            next
             if seq:
                seqs.append(''.join(seq))  
             seq = []

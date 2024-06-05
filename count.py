@@ -38,7 +38,7 @@ def count(kmer_len,table_size,threads,output,file,c=False):
 
    def count_chunk(chunk):
       nonlocal kmer_count, elements
-      for i in range(0,len(chunk) - kmer_len + 1,kmer_len):
+      for i in range(0,len(chunk) - kmer_len + 1,1):
          kmer = chunk[i:i+kmer_len]
          hash_value = mmh3.hash(kmer)
          if c:

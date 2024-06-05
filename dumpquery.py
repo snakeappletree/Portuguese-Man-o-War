@@ -34,6 +34,16 @@ def read_kmers(file_path):
                 print(f"Skipping line due to unexpected format: {line}")
     return kmers
 
+def read_kmers_query(file_path):
+    kmers = {}
+    with open(file_path, 'r') as file:
+        for line in file:
+            if line.startswith('>'):
+                count = int(line[1:].strip())
+                kmer = next(file).strip()
+                kmers[kmer] = count
+    return kmers
+
 def filter_kmers(kmers, low, high):
     return {kmer: count for kmer, count in kmers.items() if low <= count <= high}
 
@@ -77,7 +87,7 @@ def main():
         output_kmers_to_fasta(dict(sorted_kmers), args.output_file)
     
     elif args.command == "query":
-        kmers = read_kmers(args.input_file)
+        kmers = read_kmers_query(args.input_file)
         
         if args.sequence_files:
             query_kmers_set = set()

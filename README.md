@@ -3,13 +3,14 @@
 ## Overview
 
 This tool is used to count k-mers in large sequences of DNA similar to the well-known program jellyfish (seen in Lab 2, Part 1).
-The tool operates using the external library mmh3 for efficient hashing for k-mer storage.
+The tool operates using the external library mmh3 for efficient hashing for k-mer storage. This tool provides functionality for 
+counting k-mers, generating histograms, querying k-mers, and dumping k-mers to a file. Below are the commands to use each subcommand 
+with example input files `sample_DNA.txt` and `sample_multi-seqs.txt`.
 
 ## Installation
 
 Ensure you have the required dependencies installed:
-```sh
-pip install mmh3
+`pip install mmh3`
 
 The tool contains the following submethods:
 ## Main: acts primative help function and allows users to know all other functions calls that can be made. basically our -h help command our only actual properly working one 
@@ -22,6 +23,10 @@ Arguments:
  - file: Input file
  - -C: Count forward and reverse of sequence as the same (default = false, i.e. not present no '-C' typed)
 
+Example Command:
+`python count.py -m 18 -s 100000000 -t 10 -o sample_DNA_output.fasta sample_DNA.txt -C`
+- **Counting k-mers**: The command `python count.py -m 18 -s 100000000 -t 10 -o sample_DNA_output.fasta sample_DNA.txt -C` counts k-mers in the `sample_DNA.txt` file.
+
 for some reason the usage prints it in a way that implies file as last argument even though this is not how it is set up. I would change code to match usage but it refuses to accept anything but -c as pylance does not like "Non-default argument follows default argument" so the printed usage is misleading but don't know how to fix it. this is why i usually define my own arg parcers
 usage should be -h, -m kmer_len , -s table_size , -t threads , -o output, file, -C
 
@@ -32,6 +37,10 @@ Arguments:
 - -H: High count bucket value (default=100)
 - -i: Increment for bucket value (default=10)
 
+Example Command:
+`python histo.py sample_DNA_output.fasta sample_DNA_histogram.histo`
+- **Generating a Histogram**: The command `python histo.py sample_DNA_output.fasta sample_DNA_histogram.histo` generates a histogram of k-mer counts from the output file `sample_DNA_output.fasta`.
+
 again like in case of count it is not reflecting accurately so I guess just know order is same as seen in readme for all modules. assume items that are not labeled like -item expect no prefix identifier. ex : the input file just type the file don't type "input_file" before it. 
 again this is why I usually use my own parcers as I can make it work exactly as I want.
 ## Dump: Outputs all k-mer counts
@@ -41,11 +50,20 @@ Arguments:
 - -L, --low: Minimum count of k-mers to include (Default = 1)
 - -U, --high: Maximum count of k-mers to include (Default = inf)
 
+Example Command:
+`python dumpquery.py dump sample_DNA_output.fasta sample_DNA_dump_output.txt -L 1 -U inf`
+- **Dumping k-mers**: The command `python dumpquery.py dump sample_DNA_output.fasta sample_DNA_dump_output.txt -L 1 -U inf` dumps the k-mers and their counts from `sample_DNA_output.fasta` to `sample_DNA_dump_output.txt`.
+
 ## Query: Queries the counts for a specific k-mer
 Arguments:
 - input_file: Input file containing k-mers and counts
 - kmers: K-mers to query
 - -s, --sequence_files: FASTA or FASTQ files to read sequences from
+
+Example Command:
+`python dumpquery.py query sample_DNA_output.fasta -s sample_multi-seqs.txt`
+
+- **Querying k-mers**: The command `python dumpquery.py query sample_DNA_output.fasta -s sample_multi-seqs.txt` queries k-mers in the `sample_multi-seqs.txt` file against the k-mers and their counts from `sample_DNA_output.fasta`.
 
 ### randomDNA : optional bonus tool to generate data for testing main tool
 Arguments:
